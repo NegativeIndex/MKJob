@@ -9,9 +9,9 @@ generate all kinds of job files for Argon cluster
 
 I wrote two files to implement the function.
 
-⋅⋅* dwt-comsol-job-file.job: This is the template file
+* dwt-comsol-job-file.job: This is the template file
 
-⋅⋅* mkjob-comsol.py: This python code will modify the template job file to create real one.
+* mkjob-comsol.py: This python code will modify the template job file to create real one.
 
 ---
 ## Meep job files
