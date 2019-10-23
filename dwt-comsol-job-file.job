@@ -1,0 +1,58 @@
+#!/bin/sh
+#$ -q all.q
+##$ -q INFORMATICS
+##$ -q UI
+#$ -N MYJOBNAME
+##$ -pe smp 28
+##$ -l 256G=true
+#$ -pe 56cpn 56
+#$ -l mt=200G
+#$ -o CURRENTDIRECTORY
+#$ -e CURRENTDIRECTORY
+
+pyname=comsol
+cd CURRENTDIRECTORY
+
+# define all the file names
+num=${JOB_ID%%.*}
+recordname=fb-comsol-${num}.txt
+logname=log-comsol-${num}.txt
+
+# register the job
+echo "+++++++++++++++++++++++++++++" >> job.info
+date >> job.info
+echo $JOB_ID  $JOB_NAME $pyname ${recordname} >> job.info
+
+# global register
+~/bin/write-to-runningfile.py $JOB_ID $JOB_NAME $pyname ${recordname}
+~/bin/write-to-summary.py $JOB_ID $JOB_NAME $pyname ${recordname} "begin"
+
+
+# job begin
+echo $JOB_ID $JOB_NAME $pyname ${recordname} > ${recordname}
+date >> ${recordname}
+echo "hello" >> ${recordname}
+echo "===============================" >> ${recordname}
+COMSOLCOMSOL -nn 3 -np 28 batch -inputfile ${mphfile} -outputfile ${donefile} -batchlog ${logname} >> ${recordname}
+
+echo "bye" >> ${recordname}
+
+# unregister job globally
+~/bin/write-to-summary.py $JOB_ID $JOB_NAME $pyname ${recordname} "stop"
+~/bin/write-to-finish.py $JOB_ID $JOB_NAME $pyname ${recordname}
+
+
+
+#  cleanup /tmp (if necessary)
+#
+
+#  leave a hint in the working dierctory
+#  that the job has comleted
+#
+touch job.done
+echo "-----------------------------" >> job.done
+date >> job.done
+echo $JOB_ID  $JOB_NAME $pyname ${recordname} >> job.done
+echo "-----------------------------" >> job.info
+date >> job.info
+echo $JOB_ID  $JOB_NAME $pyname ${recordname} >> job.info
