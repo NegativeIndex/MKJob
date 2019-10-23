@@ -1,19 +1,16 @@
 # MKJob
 generate all kinds of job files for Argon cluster
 
----
+...
 
 ## Comsol Multiphysics job files
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### v1.p (10/22/2019)
 
-### Prerequisites
+I wrote two files to implement the function.
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+*dwt-comsol-job-file.job: This is the template file
+*mkjob-comsol.py: This python code will modify the template job file to create real one.
 
 ---
 ## Meep job files
